@@ -32,8 +32,7 @@ jobs:
         env:
           OUT3: ${{steps.run3.outputs.body}}
         run: |
-          EXPECTED3="\n### Added\n\n* Code in 0.0.3"
-          if [[ $OUT3 == $EXPECTED3 ]] 
+          if [[ $OUT3 == $(cat test_changelogs/v3-body.md) ]] 
             then 
               echo "match!"
           else 
