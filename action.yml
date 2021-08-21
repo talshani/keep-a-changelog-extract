@@ -1,11 +1,17 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'keep-a-changelog-extract-release'
+description: 'Extract a release body from a CHANGELOG.md that conforms to keep-a-changelog structure'
+author: 'Tal Shani'
 inputs:
-  milliseconds: # change this
+  filename:
+    required: false
+    description: 'The filename to use to extract release information from. Defaults to CHANGELOG.md'
+    default: 'CHANGELOG.md'
+  version:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'The version to extract out of the CHANGELOG'
+outputs:
+  body:
+    description: 'The body of the extracted release'    
 runs:
   using: 'node12'
   main: 'dist/index.js'

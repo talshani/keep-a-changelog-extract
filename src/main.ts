@@ -1,16 +1,17 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import {readFileSync} from 'fs'
+import {extractVersionLines} from './keepachangelog'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
+    const filename = core.getInput('filename') || 'CHANGELOG.md'
+    const versionToExtract: string = core.getInput('version')
+    core.debug(`Reading changelog from ${filename}`)
+    const content = readFileSync(filename).toString()
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    const body = extractVersionLines(content, versionToExtract)
 
-    core.setOutput('time', new Date().toTimeString())
+    core.setOutput('body', body)
   } catch (error) {
     core.setFailed(error.message)
   }
