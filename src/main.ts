@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
-import {readFileSync} from 'fs'
 import {extractVersionLines} from './keepachangelog'
+import {readFileSync} from 'fs'
 
 async function run(): Promise<void> {
   try {
